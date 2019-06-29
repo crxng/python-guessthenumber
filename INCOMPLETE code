@@ -1,0 +1,99 @@
+# Guess the number game. CODE IS NOT COMPLETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#v1.0 - Base Code
+#v1.1 - Play Again introduced
+
+import random
+ 
+print('Hello. What is your name?')
+
+yourName = input() # collects user's name
+
+solution = random.randint(1,20)
+
+print('Well, ' + str(yourName) + ', I am thinking of a number between 1 and 20.')
+
+acceptable = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'] # acceptable answers
+
+def game():
+
+        for attempts in range(1,6):
+
+                        print('Take a guess. You have ' + str(6 - attempts) + ' attempt(s) remaining')
+
+                        guess = str(input("Enter your guess: "))
+
+                        for value in guess:
+
+                                    if guess not in range(1,21):
+
+                                        print("That is not a valid answer.")
+
+                                        attempts += attempts
+
+                                        game()
+
+                                    else:
+
+                                        break
+
+                                    if guess < solution:
+
+                                        print('Your guess is too low. Try again.')
+
+                                    elif guess > solution:
+
+                                        print('Your guess is too high. Try again.')
+
+                                    else:
+
+                                        endofgame()
+
+'''
+                        except ValueError:
+
+                                print('Please enter a guess that is a number.')
+
+                                attempts + 1 == attempts
+'''
+
+def endofgame():
+
+    if guess == solution:
+
+                print('You guessed it! It took you ' + str(attempts) + ' attempt(s)')
+
+                playAgain()
+
+    else:
+
+                print('Game over! The number I was thinking of was ' + str(solution))
+
+                playAgain()
+
+ 
+
+#Option to play again with a new number
+
+def playAgain():
+
+        global solution
+
+        print('Play again? Y/N')
+
+        playAgain = input()
+
+        if playAgain == 'Y':
+
+                print('Okay, ' + str(yourName) + ', I have another number between 1 and 20.')
+
+                solution = random.randint(1,20)
+
+                game()
+
+        else: print('Thanks for playing!')
+
+ 
+
+#Start game
+game()
