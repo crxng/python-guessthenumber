@@ -1,9 +1,12 @@
-# Guess the number game. CODE IS NOT COMPLETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Guess the number game. 
 
 #v1.0 - Base Code
 #v1.1 - Play Again introduced
+#v1.2 - added boundary limits, removed attempts entirely
 
 import random
+
+import sys
  
 print('Hello. What is your name?')
 
@@ -13,18 +16,28 @@ solution = random.randint(1,20)
 
 print('Well, ' + str(yourName) + ', I am thinking of a number between 1 and 20.')
 
-acceptable = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'] # acceptable answers
-
 def game():
 
         for attempts in range(1,6):
 
-                        print('Take a guess. You have ' + str(6 - attempts) + ' attempt(s) remaining')
+                        print('Take a guess.')
 
-                        guess = str(input("Enter your guess: "))
+                        try:
 
-                        for value in guess:
+                            guess = int(input("Enter your guess: "))
 
+                        except ValueError: # prevents any answer other than an integer
+
+                            print ("That is not a valid answer.")
+
+                            attempts += attempts
+
+                            game()
+
+                        while guess:
+
+                                try:
+                                    
                                     if guess not in range(1,21):
 
                                         print("That is not a valid answer.")
@@ -37,39 +50,51 @@ def game():
 
                                         break
 
-                                    if guess < solution:
+                                except ValueError:
+
+                                    print ("That is not a valid answer.")
+
+                                    attempts += attempts
+
+                                    game()
+
+                        while guess:
+
+                                    if guess < solution: # tell user if their guess is high or low
 
                                         print('Your guess is too low. Try again.')
+
+                                        game()
 
                                     elif guess > solution:
 
                                         print('Your guess is too high. Try again.')
 
+                                        game()
+
+                                    elif guess == 0:
+
+                                        print('Your guess is too low. Try again.')
+
+                                        game()
+
                                     else:
 
-                                        endofgame()
+                                        break
 
-'''
-                        except ValueError:
+                        while guess:     
 
-                                print('Please enter a guess that is a number.')
+                                    if guess == solution:
 
-                                attempts + 1 == attempts
-'''
+                                        print('You guessed it!')
 
-def endofgame():
+                                        playAgain()
 
-    if guess == solution:
+                                    else:
 
-                print('You guessed it! It took you ' + str(attempts) + ' attempt(s)')
+                                        print('Game over! The number I was thinking of was ' + str(solution))
 
-                playAgain()
-
-    else:
-
-                print('Game over! The number I was thinking of was ' + str(solution))
-
-                playAgain()
+                                        playAgain()
 
  
 
@@ -77,11 +102,8 @@ def endofgame():
 
 def playAgain():
 
-        global solution
 
-        print('Play again? Y/N')
-
-        playAgain = input()
+        playAgain = input("Enter 'Y' if you want to play again: ")
 
         if playAgain == 'Y':
 
@@ -92,6 +114,8 @@ def playAgain():
                 game()
 
         else: print('Thanks for playing!')
+
+        sys.exit()
 
  
 
