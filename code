@@ -8,7 +8,7 @@ import random
 
 import sys
  
-print('Hello. What is your name?')
+print('Hello! What is your name?')
 
 yourName = input() # collects user's name
 
